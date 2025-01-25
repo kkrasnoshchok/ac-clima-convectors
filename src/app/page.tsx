@@ -2,15 +2,17 @@ async function fetchProducts() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
     cache: "no-store",
   });
-  console.log('[Log] fetched', {
-    res
-  })
   if (!res.ok) throw new Error("Failed to fetch products");
   return res.json();
 }
 
 export default async function Home() {
-  const products = await fetchProducts();
+  const products = (await fetchProducts()) as {
+    _id: string;
+    name: string;
+    description: string;
+    price: string;
+  }[];
 
   return (
     <main className="p-4">
