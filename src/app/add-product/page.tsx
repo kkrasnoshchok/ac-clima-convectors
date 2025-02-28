@@ -13,8 +13,15 @@ export default function AddProductPage() {
     e.preventDefault();
     setMessage("");
 
+    // Generate slug from product name
+    const slug = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-") // Replace spaces & special chars with "-"
+      .replace(/^-+|-+$/g, ""); // Trim dashes from start/end
+
     const productData = {
       name,
+      slug, // ✅ Add slug here
       price: parseFloat(price),
       description,
       imageUrl,
